@@ -1,30 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
 
-    <TextView
-        android:id="@+id/tvItemDescripcion"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvItemCategoria"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_money" android:importantForAccessibility="no"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-    <TextView
-        android:id="@+id/tvItemCantidad"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvItemDescripcion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@id/tvItemCantidad"
+            app:layout_constraintStart_toEndOf="@id/ivIcon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintBottom_toTopOf="@id/tvItemCategoria"
+            tools:text="Compra de supermercado" />
 
-    <TextView
-        android:id="@+id/tvItemFecha"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvItemCategoria"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@id/tvItemCantidad"
+            app:layout_constraintStart_toEndOf="@id/ivIcon"
+            app:layout_constraintTop_toBottomOf="@id/tvItemDescripcion"
+            app:layout_constraintBottom_toTopOf="@id/tvItemFecha"
+            tools:text="Comida" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tvItemFecha"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/tvItemCantidad"
+            app:layout_constraintStart_toEndOf="@id/ivIcon"
+            app:layout_constraintTop_toBottomOf="@id/tvItemCategoria"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="2025-10-31" />
+
+        <TextView
+            android:id="@+id/tvItemCantidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="?attr/colorPrimary" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="$50.00" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
