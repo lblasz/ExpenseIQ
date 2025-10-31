@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import com.example.expensetracker.Gastos;
-import com.example.expensetracker.ExpenseDao;
+import com.example.expenseiq.Gastos;
+import com.example.expenseiq.ExpenseDao;
 
  class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHolder> {
     private List<Gastos> gastos;
@@ -29,10 +29,10 @@ import com.example.expensetracker.ExpenseDao;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tvDate = itemView.findViewById(R.id.tvItemDate);
-            tvCategory = itemView.findViewById(R.id.tvItemCategory);
-            tvAmount = itemView.findViewById(R.id.tvItemAmount);
-            tvDescription = itemView.findViewById(R.id.tvItemDescription);
+            tvDate = itemView.findViewById(R.id.tvItemFecha);
+            tvCategory = itemView.findViewById(R.id.tvItemCategoria);
+            tvAmount = itemView.findViewById(R.id.tvItemCantidad);
+            tvDescription = itemView.findViewById(R.id.tvItemDescripcion);
         }
     }
 
