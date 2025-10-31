@@ -57,4 +57,36 @@ public class ExpenseDao {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         return db.delete("Gastos", "id=?", new String[]{String.valueOf(id)});
     }
-}
+
+    public double getSumaTotalGastos() {
+        double total = 0.0;
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        // usa SUM para obtener todos los gastos
+        Cursor cursor = db.rawQuery("SELECT SUM(cantidad) FROM Gastos", null);
+
+        if (cursor.moveToFirst()) {
+            total = cursor.getDouble(0); // El resultado está en la primera columna
+        }
+        cursor.close();
+        return total;
+    }
+    public Gastos getGastoById(int id) {
+        Gastos gasto = null;
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        // Consulta SQL para buscar por ID
+        Cursor cursor = db.rawQuery("SELECT * FROM Gastos WHERE id = ?", new String[]{String.valueOf(id)});
+
+        if (cursor.moveToFirst()) {
+            gasto = new Gastos(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getDouble(2),
+                    cursor.getString(3),
+                    cursor.getString(4)
+            );
+        }
+        cursor.close();
+        return gasto;
+    }}
