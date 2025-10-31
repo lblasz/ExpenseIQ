@@ -29,7 +29,7 @@ public class ExpenseDao {
     public List<Gastos> getGastos() {
         List<Gastos> list = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM Gastos ORDER BY date DESC", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM Gastos ORDER BY fecha DESC", null);
         while (cursor.moveToNext()) {
             list.add(new Gastos(
                     cursor.getInt(0),
