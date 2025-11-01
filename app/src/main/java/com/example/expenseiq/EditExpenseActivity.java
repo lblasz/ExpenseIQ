@@ -30,27 +30,21 @@ public class EditExpenseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_expense);
 
         expenseDao = new ExpenseDao(this);
-
-        // 1. Obtener el ID del gasto que enviamos desde el Adapter
+        // Obtener el ID del gasto que enviamos desde el Adapter
         gastoId = getIntent().getIntExtra("GASTO_ID", -1);
         if (gastoId == -1) {
-            // Si no hay ID, algo salió mal
             Toast.makeText(this, "Error: Gasto no encontrado", Toast.LENGTH_SHORT).show();
-            finish(); // Cierra esta activity
+            finish();
             return;
         }
-
-        // 2. Encontrar las Vistas (Views) del layout de edición
         etDescription = findViewById(R.id.etEditDescripcion);
         etAmount = findViewById(R.id.etEditCantidad);
         etCategory = findViewById(R.id.etEditCategoria);
         etDate = findViewById(R.id.etEditFecha);
         btnSaveChanges = findViewById(R.id.btnGuardarCambios);
-
-        // 3. Cargar los datos del gasto en segundo plano
+        // Cargar los datos del gasto en segundo plano
         loadGastoData();
 
-        // 4. Configurar el botón de guardar
         btnSaveChanges.setOnClickListener(v -> {
             saveGastoChanges();
         });
@@ -81,27 +75,26 @@ public class EditExpenseActivity extends AppCompatActivity {
         String date = etDate.getText().toString();
 
         if (desc.isEmpty() || amountStr.isEmpty() || category.isEmpty() || date.isEmpty()) {
-            Toast.makeText(this, "Por favor, rellene todos los campos", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Por favor rellene todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }
 
         try {
             double amount = Double.parseDouble(amountStr);
 
-            // Actualizamos el objeto 'gastoActual'
+            // Actualiza el objeto gastoActual
             gastoActual.setDescripcion(desc);
             gastoActual.setCantidad(amount);
             gastoActual.setCategoria(category);
             gastoActual.setFecha(date);
 
-            // Guardamos en la BD en segundo plano
+            // Guarda en la BD en segundo plano
             executor.execute(() -> {
-                expenseDao.updateGastos(gastoActual); // <-- Usamos el método UPDATE
-
-                // Volvemos al hilo principal para notificar y cerrar
+                expenseDao.updateGastos(gastoActual);
+                // Vuelve al hilo principal para notificar y cerrar
                 mainHandler.post(() -> {
                     Toast.makeText(EditExpenseActivity.this, "Gasto actualizado", Toast.LENGTH_SHORT).show();
-                    finish(); // Cierra esta activity y vuelve a la lista
+                    finish();
                 });
             });
 

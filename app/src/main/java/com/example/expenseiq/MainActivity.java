@@ -48,11 +48,9 @@ public class MainActivity extends AppCompatActivity {
                 executor.execute(() -> {
                     long result = expenseDao.insertGastos(gastos);
 
-                    // 3. Muestra el Toast de vuelta en el hilo principal
                     runOnUiThread(() -> {
                         if (result > 0) {
                             Toast.makeText(MainActivity.this, "Gasto agregado", Toast.LENGTH_SHORT).show();
-                            // Limpiar campos
                             etDescription.setText("");
                             etAmount.setText("");
                             etCategory.setText("");

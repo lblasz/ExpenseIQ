@@ -5,6 +5,16 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
+
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="Logo de la app"
+        android:src="@drawable/cerebrus" />
+
     <TextView
         android:id="@+id/tvTotalGastos"
         android:layout_width="match_parent"

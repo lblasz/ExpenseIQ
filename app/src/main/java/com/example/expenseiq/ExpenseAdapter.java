@@ -58,7 +58,6 @@ class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ExpenseAdapter.ViewHolder holder, int position) {
-        // 1. Pones los datos en la vista (esto ya lo tenías)
         Gastos e = gastos.get(position);
         holder.tvDate.setText(e.getFecha());
         holder.tvCategory.setText(e.getCategoria());
@@ -71,38 +70,31 @@ class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHolder> {
             public void onClick(View v) {
                 Gastos gastoParaEditar = gastos.get(holder.getAdapterPosition());
 
-                // Creamos un Intent para abrir la nueva EditExpenseActivity
                 Intent intent = new Intent(context, EditExpenseActivity.class);
 
                 // Ponemos el ID del gasto en el Intent
                 intent.putExtra("GASTO_ID", gastoParaEditar.getId());
 
-                // Iniciamos la nueva activity
                 context.startActivity(intent);
             }
         });
-        // 2. PEGA EL CÓDIGO DEL LISTENER AQUÍ
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                // Obtenemos el gasto actual
-                // Usamos holder.getAdapterPosition() para estar seguros
+                // Obtiene el gasto actual
                 Gastos gastoParaEliminar = gastos.get(holder.getAdapterPosition());
 
-                // Creamos el diálogo de confirmación
+                // diálogo de confirmación
                 new AlertDialog.Builder(context)
                         .setTitle("Confirmar eliminación")
                         .setMessage("¿Estás seguro de que quieres eliminar este gasto?")
                         .setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // 1. Ejecutar en hilo secundario
                                 executor.execute(() -> {
-                                    // 2. Eliminar de la base de datos
                                     expenseDao.deleteGastos(gastoParaEliminar.getId());
-
-                                    // 3. Volver al hilo principal para actualizar la UI
+                                    //  Volver al hilo principal para actualizar la UI
                                     new Handler(Looper.getMainLooper()).post(() -> {
-                                        // 4. Recargar la lista llamando al método público
+                                        // Recargar la lista llamando al método público
                                         if (context instanceof ListActivity) {
                                             ((ListActivity) context).loadExpenses();
                                         }
@@ -111,11 +103,11 @@ class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHolder> {
                                 });
                             }
                         })
-                        .setNegativeButton("Cancelar", null) // No hace nada si se cancela
+                        .setNegativeButton("Cancelar", null)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
 
-                return true; // Importante: 'true' consume el evento de long click
+                return true;
             }
         });
     }
